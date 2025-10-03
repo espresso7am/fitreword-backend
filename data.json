@@ -1,1 +1,20 @@
-{"users":[],"challenges":[],"rewards":[],"faq":[],"submissions":[],"supportTickets":[]}
+{
+  "users": [
+    {
+      "id": "user_001",
+      "username": "adam",
+      "password": "$2a$10$N9qo8uLOickgx2ZMRZoMye.IVF.VqAJyLyMTtEgBBg4axY6FcxAyW",
+      "points": 100,
+      "profilePictureUrl": null,
+      "bio": "مستخدم تجريبي",
+      "activeChallenge": null,
+      "completedChallenges": [],
+      "redeemedRewards": []
+    }
+  ],
+  "challenges": [],
+  "rewards": [],
+  "faq": [],
+  "submissions": [],
+  "supportTickets": []
+}
