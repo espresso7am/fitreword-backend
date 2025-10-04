@@ -4,17 +4,324 @@
       "id": "user_001",
       "username": "adam",
       "password": "$2b$10$FCnzXoX0xJ4ZrxzA5Dc6LuFiqU04.gpg80pL8TEVM7shXPrNcvmdK",
-      "points": 100,
+    "points": 0,
       "profilePictureUrl": null,
-      "bio": "مستخدم تجريبي",
+      "bio": "مستخدم جديد - جاهز للتحدي! 💪",
       "activeChallenge": null,
       "completedChallenges": [],
       "redeemedRewards": []
     }
   ],
-  "challenges": [],
-  "rewards": [],
-  "faq": [],
+  "challenges": [
+    {
+      "id": "ch_walk_1",
+      "name": {
+        "ar": "مشي يومي",
+        "en": "Daily Walking"
+      },
+      "description": {
+        "ar": "مشي 5000 خطوة خلال 4 ساعات",
+        "en": "Walk 5000 steps within 4 hours"
+      },
+      "reward": 100,
+      "difficulty": "سهل",
+      "duration": "4 ساعات"
+    },
+    {
+      "id": "ch_run_1",
+      "name": {
+        "ar": "جري سريع",
+        "en": "Speed Running"
+      },
+      "description": {
+        "ar": "جري 5 km خلال 35 دقيقة",
+        "en": "Run 5 km within 35 minutes"
+      },
+      "reward": 250,
+      "difficulty": "صعب",
+      "duration": "35 دقيقة"
+    },
+    {
+      "id": "ch_bike_1",
+      "name": {
+        "ar": "ركوب الدراجة",
+        "en": "Cycling Challenge"
+      },
+      "description": {
+        "ar": "قطع مسافة 8 km بالدراجة خلال 2 ساعة",
+        "en": "Cycle a distance of 8 km within 2 hours"
+      },
+      "reward": 150,
+      "difficulty": "متوسط",
+      "duration": "2 ساعات"
+    },
+    {
+      "id": "ch_walk_2",
+      "name": {
+        "ar": "مشي طويل",
+        "en": "Long Walk"
+      },
+      "description": {
+        "ar": "مشي 12 ألف خطوة خلال 24 ساعة",
+        "en": "Walk 12,000 steps within 24 hours"
+      },
+      "reward": 150,
+      "difficulty": "متوسط",
+      "duration": "24 ساعة"
+    },
+    {
+      "id": "ch_swim_1",
+      "name": {
+        "ar": "سباحة",
+        "en": "Swimming"
+      },
+      "description": {
+        "ar": "قطع 1000 متر سباحة خلال 1 ساعة",
+        "en": "Swim 1000 meters within 1 hour"
+      },
+      "reward": 150,
+      "difficulty": "متوسط",
+      "duration": "1 ساعة"
+    },
+    {
+      "id": "ch_workout_1",
+      "name": {
+        "ar": "تمارين منزلية",
+        "en": "Home Workout"
+      },
+      "description": {
+        "ar": "أداء 30 دقيقة من التمارين المنزلية",
+        "en": "Complete 30 minutes of home workout"
+      },
+      "reward": 120,
+      "difficulty": "سهل",
+      "duration": "30 دقيقة"
+    },
+    {
+      "id": "ch_stairs_1",
+      "name": {
+        "ar": "صعود الدرج",
+        "en": "Stair Climbing"
+      },
+      "description": {
+        "ar": "صعود 20 طابق خلال يوم واحد",
+        "en": "Climb 20 floors in one day"
+      },
+      "reward": 180,
+      "difficulty": "متوسط",
+      "duration": "24 ساعة"
+    },
+    {
+      "id": "ch_yoga_1",
+      "name": {
+        "ar": "يوغا",
+        "en": "Yoga Session"
+      },
+      "description": {
+        "ar": "جلسة يوغا لمدة 45 دقيقة",
+        "en": "45-minute yoga session"
+      },
+      "reward": 130,
+      "difficulty": "سهل",
+      "duration": "45 دقيقة"
+    }
+  ],
+  "rewards": [
+    {
+      "id": "rw1",
+      "name": {
+        "ar": "قسيمة قهوة مجانية",
+        "en": "Free Coffee Voucher"
+      },
+      "description": {
+        "ar": "احصل على قسيمة لقهوة مجانية من اون اوف كافيه.",
+        "en": "Get a voucher for a free coffee from On Off Cafe."
+      },
+      "cost": 350,
+      "imageUrl": "https://imgur.com/E8akbYC"
+    },
+    {
+      "id": "rw2",
+      "name": {
+        "ar": "خصم 20% على الملابس الرياضية",
+        "en": "20% Discount on Sportswear"
+      },
+      "description": {
+        "ar": "كود خصم يمكنك استخدامه في متاجر شمس الرمال.",
+        "en": "A discount code for use at Sun & Sand stores."
+      },
+      "cost": 500,
+      "imageUrl": "https://imgur.com/aMDuN0h"
+    },
+    {
+      "id": "rw3",
+      "name": {
+        "ar": "خصم 30% من هاف مليون",
+        "en": "30% Discount at Half Million"
+      },
+      "description": {
+        "ar": "على المشروبات الساخنة فقط.",
+        "en": "On hot drinks only."
+      },
+      "cost": 300,
+      "imageUrl": "https://imgur.com/gET0vV7"
+    },
+    {
+      "id": "rw4",
+      "name": {
+        "ar": "خصم 20% من كافيه قوام",
+        "en": "20% Discount at Qawam Cafe"
+      },
+      "description": {
+        "ar": "احصل على خصم 20% لدى كافيه قوام.",
+        "en": "Get a 20% discount at Qawam Cafe."
+      },
+      "cost": 250,
+      "imageUrl": "https://i.imgur.com/WdD9sWQ.png"
+    },
+    {
+      "id": "rw5",
+      "name": {
+        "ar": "خصم 30% من مطعم دانك",
+        "en": "30% Discount at Dank Restaurant"
+      },
+      "description": {
+        "ar": "احصل على خصم 30% لدى مطعم دانك.",
+        "en": "Get a 30% discount at Dank restaurant."
+      },
+      "cost": 700,
+      "imageUrl": "https://i.imgur.com/AN5MrE8.png"
+    },
+    {
+      "id": "rw6",
+      "name": {
+        "ar": "خصم 15% من وقت اللياقة",
+        "en": "15% Discount at Fitness Time"
+      },
+      "description": {
+        "ar": "استخدم هذا الكود للحصول على خصم 15% على اشتراكك القادم.",
+        "en": "Use this code to get a 15% discount on your next subscription."
+      },
+      "cost": 1500,
+      "imageUrl": "https://i.imgur.com/SFwUmh4.png"
+    },
+    {
+      "id": "rw7",
+      "name": {
+        "ar": "خصم 30% من مطعم شيفز",
+        "en": "30% Discount at Chef's Restaurant"
+      },
+      "description": {
+        "ar": "احصل على خصم 30% لدى مطعم شيفز.",
+        "en": "Get a 30% discount at Chef's restaurant."
+      },
+      "cost": 800,
+      "imageUrl": "https://i.imgur.com/FQKCETq.png"
+    },
+    {
+      "id": "rw8",
+      "name": {
+        "ar": "خصم 25% من نادي الرياضة",
+        "en": "25% Discount at Sports Club"
+      },
+      "description": {
+        "ar": "خصم على اشتراك شهري في أحد الأندية الرياضية المشاركة.",
+        "en": "Discount on monthly membership at participating sports clubs."
+      },
+      "cost": 1200,
+      "imageUrl": "https://i.imgur.com/sports_club.png"
+    }
+  ],
+  "faq": [
+    {
+      "id": "faq1",
+      "question": {
+        "ar": "كيف أبدأ تحديًا جديدًا؟",
+        "en": "How do I start a new challenge?"
+      },
+      "answer": {
+        "ar": "اذهب إلى صفحة التحديات، اختر التحدي الذي يناسبك، ثم اضغط على زر 'ابدأ التحدي'. لا يمكنك بدء أكثر من تحدٍ واحد في نفس الوقت.",
+        "en": "Go to the challenges page, select a challenge that suits you, then press the 'Start Challenge' button. You cannot start more than one challenge at a time."
+      }
+    },
+    {
+      "id": "faq2",
+      "question": {
+        "ar": "ماذا أفعل إذا لم أستطع إنهاء التحدي؟",
+        "en": "What if I can't finish a challenge?"
+      },
+      "answer": {
+        "ar": "لا تقلق. في حال لم تتمكن من إكمال التحدي، يمكنك دائماً إلغاؤه والبدء فيه من جديد في أي وقت.",
+        "en": "Don't worry. If you can't complete a challenge, you can always cancel it and start over at any time."
+      }
+    },
+    {
+      "id": "faq3",
+      "question": {
+        "ar": "كيف يتم احتساب النقاط؟",
+        "en": "How are points calculated?"
+      },
+      "answer": {
+        "ar": "تختلف النقاط حسب صعوبة التحدي. سهل: 100-130 نقطة، متوسط: 150-180 نقطة، صعب: 250+ نقطة.",
+        "en": "Points vary based on challenge difficulty. Easy: 100-130 points, Medium: 150-180 points, Hard: 250+ points."
+      }
+    },
+    {
+      "id": "faq4",
+      "question": {
+        "ar": "كيف أستبدل نقاطي بمكافأة؟",
+        "en": "How do I redeem my points for a reward?"
+      },
+      "answer": {
+        "ar": "اختر المكافأة المرغوبة، تأكد من امتلاك النقاط الكافية ثم اضغط على 'استبدال' للحصول على رمز QR.",
+        "en": "Select the desired reward, make sure you have enough points, then press 'Redeem' to get a QR code."
+      }
+    },
+    {
+      "id": "faq5",
+      "question": {
+        "ar": "أين يمكنني استخدام المكافآت؟",
+        "en": "Where can I use the rewards?"
+      },
+      "answer": {
+        "ar": "يمكنك استخدام المكافآت لدى شركائنا المعتمدين في السعودية. اعرض رمز QR عند المتجر للاستفادة من المكافأة.",
+        "en": "You can use the rewards at our certified partners in Saudi Arabia. Show the QR code at the store to claim your reward."
+      }
+    },
+    {
+      "id": "faq6",
+      "question": {
+        "ar": "هل يمكنني إلغاء التحدي بعد البدء؟",
+        "en": "Can I cancel a challenge after starting?"
+      },
+      "answer": {
+        "ar": "نعم، يمكنك إلغاء التحدي في أي وقت من صفحة التحدي النشط. لن تفقد نقاطك المكتسبة مسبقاً.",
+        "en": "Yes, you can cancel a challenge anytime from the active challenge page. You won't lose your previously earned points."
+      }
+    },
+    {
+      "id": "faq7",
+      "question": {
+        "ar": "كم من الوقت تستغرق مراجعة التحدي؟",
+        "en": "How long does challenge review take?"
+      },
+      "answer": {
+        "ar": "عادة ما تستغرق مراجعة التحديات من 2-24 ساعة. ستحصل على إشعار فور الموافقة أو الرفض.",
+        "en": "Challenge reviews usually take 2-24 hours. You'll get a notification once approved or rejected."
+      }
+    },
+    {
+      "id": "faq8",
+      "question": {
+        "ar": "هل المكافآت لها تاريخ انتهاء؟",
+        "en": "Do rewards have expiration dates?"
+      },
+      "answer": {
+        "ar": "نعم، معظم المكافآت صالحة لمدة 30 يوماً من تاريخ الاستبدال. تحقق من تفاصيل كل مكافأة.",
+        "en": "Yes, most rewards are valid for 30 days from redemption date. Check each reward's details."
+      }
+    }
+  ],
   "submissions": [],
   "supportTickets": []
 }
