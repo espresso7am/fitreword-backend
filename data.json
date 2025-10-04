@@ -3,7 +3,7 @@
     {
       "id": "user_001",
       "username": "adam",
-      "password": "$2a$10$N9qo8uLOickgx2ZMRZoMye.IVF.VqAJyLyMTtEgBBg4axY6FcxAyW",
+      "password": "$2b$10$FCnzXoX0xJ4ZrxzA5Dc6LuFiqU04.gpg80pL8TEVM7shXPrNcvmdK",
       "points": 100,
       "profilePictureUrl": null,
       "bio": "مستخدم تجريبي",
