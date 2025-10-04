@@ -3,10 +3,11 @@
     {
       "id": "user_001",
       "username": "adam",
+      "email": "adamthest214@gmail.com",
       "password": "$2b$10$FCnzXoX0xJ4ZrxzA5Dc6LuFiqU04.gpg80pL8TEVM7shXPrNcvmdK",
-    "points": 0,
+      "points": 0,
       "profilePictureUrl": null,
-      "bio": "مستخدم جديد - جاهز للتحدي! 💪",
+      "bio": "crossFit 💪",
       "activeChallenge": null,
       "completedChallenges": [],
       "redeemedRewards": []
