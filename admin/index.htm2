@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة تحكم FitReword</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root { --bg-color: #f8f9fa; --sidebar-bg: #ffffff; --primary-color: #3AA475; --text-color: #343a40; --card-bg: #ffffff; --shadow: 0 4px 6px rgba(0, 0, 0, 0.05); --border-color: #dee2e6; --status-approved: #28a745; --status-rejected: #dc3545; --status-pending: #ffc107;}
+        * { box-sizing: border-box; }
+        body { font-family: 'Cairo', sans-serif; background-color: var(--bg-color); color: var(--text-color); margin: 0; display: flex; height: 100vh; overflow: hidden; }
+        .sidebar { width: 260px; background-color: var(--sidebar-bg); padding: 20px; height: 100%; box-shadow: -2px 0 5px rgba(0,0,0,0.05); display: flex; flex-direction: column; position: fixed; right: 0; top: 0; }
+        .sidebar h1 { color: var(--primary-color); text-align: center; margin-bottom: 40px; font-size: 1.8em; }
+        .sidebar nav a { display: flex; align-items: center; justify-content: space-between; color: var(--text-color); text-decoration: none; padding: 15px 20px; margin-bottom: 10px; border-radius: 8px; font-weight: 600; transition: all 0.3s ease; }
+        .sidebar nav a i { margin-left: 15px; }
+        .sidebar nav a:hover, .sidebar nav a.active { background-color: var(--primary-color); color: white; }
+        .main-content { margin-right: 260px; flex-grow: 1; padding: 40px; overflow-y: auto; height: 100%; }
+        .page { display: none; }
+        .page.active { display: block; }
+        .page-header { margin-bottom: 30px; display: flex; justify-content: space-between; align-items: center; }
+        .page-header h2 { font-size: 2em; margin: 0; }
+        .btn { padding: 10px 15px; border: none; border-radius: 5px; color: white; font-weight: 600; cursor: pointer; transition: background-color 0.2s; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
+        .btn-primary { background-color: var(--primary-color); } .btn-approve { background-color: var(--status-approved); flex-grow: 1; } .btn-danger { background-color: var(--status-rejected); flex-grow: 1; } .btn-secondary { background-color: #6c757d; }
+        .btn-details { background-color: var(--primary-color); padding: 8px 12px; font-size: 0.9em; }
+        .tabs { display: flex; border-bottom: 2px solid var(--border-color); margin-bottom: 20px; }
+        .tab { padding: 10px 20px; cursor: pointer; font-weight: 600; border-bottom: 4px solid transparent; transition: all 0.2s ease; }
+        .tab.active { color: var(--primary-color); border-bottom-color: var(--primary-color); }
+        .submission-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
+        .submission-card { background: var(--card-bg); border-radius: 8px; box-shadow: var(--shadow); overflow: hidden; display: flex; flex-direction: column; }
+        .submission-card img { width: 100%; height: 200px; object-fit: cover; cursor: pointer; }
+        .card-content { padding: 15px; flex-grow: 1; }
+        .card-content h4, .card-content p { margin: 5px 0; }
+        .card-actions { padding: 15px; border-top: 1px solid var(--border-color); display: flex; gap: 10px; }
+        .table-wrapper { width: 100%; border-collapse: collapse; background-color: var(--card-bg); box-shadow: var(--shadow); border-radius: 8px; overflow: hidden; }
+        .table-wrapper th, .table-wrapper td { padding: 15px; text-align: right; border-bottom: 1px solid var(--border-color); }
+        .table-wrapper th { background-color: #f8f9fa; font-weight: 700; }
+        .table-wrapper tr:last-child td { border-bottom: none; }
+        .table-wrapper tr:hover { background-color: #f1f3f5; }
+        .user-name-cell { display: flex; align-items: center; gap: 10px; }
+        .notification-badge { background-color: var(--status-rejected); color: white; border-radius: 50%; min-width: 22px; height: 22px; padding: 0 5px; font-size: 0.8em; font-weight: bold; display: flex; justify-content: center; align-items: center; }
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.8); justify-content: center; align-items: center; }
+        .modal-content { margin: auto; display: block; max-width: 80%; max-height: 80vh; }
+        .close { position: absolute; top: 15px; right: 35px; color: #f1f1f1; font-size: 40px; font-weight: bold; cursor: pointer; }
+        .hidden { display: none; }
+        .user-detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        .detail-card { background: var(--card-bg); padding: 20px; border-radius: 8px; box-shadow: var(--shadow); }
+        .detail-card h3 { margin-top: 0; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; }
+        .profile-info { text-align: center; } .profile-info img { width: 120px; height: 120px; border-radius: 50%; border: 3px solid var(--primary-color); object-fit: cover; }
+        .profile-info h4 { margin: 10px 0 5px; } .profile-info p { margin: 0; color: #6c757d; }
+        .chat-container { max-height: 400px; display: flex; flex-direction: column; }
+        .chat-messages { flex-grow: 1; max-height: 300px; overflow-y: auto; padding: 10px; border: 1px solid var(--border-color); border-radius: 8px; margin-bottom: 10px; }
+        .chat-message { margin-bottom: 15px; padding: 10px; border-radius: 8px; }
+        .message-user { background-color: #e3f2fd; text-align: right; }
+        .message-admin { background-color: #f1f8e9; text-align: left; }
+        .timestamp { font-size: 0.8em; color: #6c757d; display: block; margin-top: 5px; }
+        .reply-form { display: flex; gap: 10px; }
+        .reply-form textarea { flex-grow: 1; padding: 10px; border: 1px solid var(--border-color); border-radius: 5px; resize: vertical; min-height: 40px; }
+        .reply-form button { align-self: flex-end; }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h1><i class="fas fa-dumbbell"></i> FitReword</h1>
+        <nav>
+            <a href="#" class="nav-link" data-page="submissions">
+                <span><i class="fas fa-check-to-slot"></i> طلبات التحقق</span>
+            </a>
+            <a href="#" class="nav-link" data-page="users">
+                <span><i class="fas fa-users"></i> المستخدمون والدعم</span>
+                <span id="support-nav-badge" class="notification-badge hidden">0</span>
+            </a>
+        </nav>
+    </div>
+
+    <div class="main-content">
+        <div id="submissions" class="page">
+            <!-- Submissions content will be loaded here -->
+        </div>
+
+        <div id="users" class="page">
+            <div id="users-list-view">
+                <div class="page-header">
+                    <h2>إدارة المستخدمين والدعم</h2>
+                </div>
+                <table class="table-wrapper">
+                    <thead>
+                        <tr>
+                            <th>اسم المستخدم</th>
+                            <th>البريد الإلكتروني</th>
+                            <th>النقاط</th>
+                            <th>الإجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody id="users-list-tbody">
+                        <!-- Users will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+            <div id="user-detail-view" class="hidden">
+                <!-- User detail view will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Image Modal -->
+    <div id="imageModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="modalImage">
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const pages = { submissions: document.getElementById('submissions'), users: document.getElementById('users') };
+        const navLinks = document.querySelectorAll('.nav-link');
+        let allUsersData = [];
+        let allSubmissionsData = {};
+        
+        // --- Navigation ---
+        const showPage = (pageId) => {
+            Object.values(pages).forEach(p => p.classList.remove('active'));
+            navLinks.forEach(l => l.classList.remove('active'));
+            if(pages[pageId]) pages[pageId].classList.add('active');
+            const activeLink = document.querySelector(`.nav-link[data-page='${pageId}']`);
+            if(activeLink) activeLink.classList.add('active');
+            
+            if (pageId === 'users') {
+                document.getElementById('user-detail-view').classList.add('hidden');
+                document.getElementById('users-list-view').classList.remove('hidden');
+                loadUsers();
+            } else if (pageId === 'submissions') {
+                loadSubmissions();
+            }
+        };
+        navLinks.forEach(link => { link.addEventListener('click', (e) => { e.preventDefault(); showPage(e.currentTarget.dataset.page); }); });
+        
+        // --- Submissions Logic ---
+        const loadSubmissions = async () => {
+            try {
+                const response = await fetch('https://fitreword-backend.onrender.com/api/admin/submissions');
+                allSubmissionsData = await response.json();
+                renderSubmissionsPage('pending');
+            } catch (e) {
+                console.error("Failed to load submissions:", e);
+                pages.submissions.innerHTML = '<p>فشل تحميل الطلبات.</p>';
+            }
+        };
+
+        window.renderSubmissionsPage = (status) => {
+            const submissions = allSubmissionsData[status] || [];
+            const content = `
+                <div class="page-header"><h2>إدارة طلبات التحقق</h2></div>
+                <div class="tabs">
+                    <div class="tab ${status === 'pending' ? 'active' : ''}" onclick="renderSubmissionsPage('pending')">قيد الانتظار (${allSubmissionsData.pending?.length || 0})</div>
+                    <div class="tab ${status === 'approved' ? 'active' : ''}" onclick="renderSubmissionsPage('approved')">تمت الموافقة (${allSubmissionsData.approved?.length || 0})</div>
+                    <div class="tab ${status === 'rejected' ? 'active' : ''}" onclick="renderSubmissionsPage('rejected')">مرفوضة (${allSubmissionsData.rejected?.length || 0})</div>
+                </div>
+                <div class="submission-list">
+                    ${submissions.length > 0 ? submissions.map(sub => `
+                        <div class="submission-card">
+                            <img src="${sub.imageUrl}" alt="Proof" onclick="openModal('${sub.imageUrl}')">
+                            <div class="card-content">
+                                <h4>${sub.username}</h4>
+                                <p><strong>التحدي:</strong> ${sub.challengeName}</p>
+                                <p><strong>تاريخ الإرسال:</strong> ${new Date(sub.submittedAt).toLocaleDateString('ar-EG')}</p>
+                                ${status !== 'pending' ? `<p><strong>الحالة:</strong> ${status === 'approved' ? `تمت الموافقة (+${sub.pointsAwarded} نقطة)` : `مرفوض (السبب: ${sub.rejectionReason || 'غير محدد'})`}</p>` : ''}
+                            </div>
+                            ${status === 'pending' ? `
+                            <div class="card-actions">
+                                <button class="btn btn-approve" onclick="approveSubmission('${sub.id}')">موافقة</button>
+                                <button class="btn btn-danger" onclick="rejectSubmission('${sub.id}', '${sub.username}', '${sub.challengeName}')">رفض</button>
+                            </div>` : ''}
+                        </div>
+                    `).join('') : '<p>لا توجد طلبات في هذه الفئة.</p>'}
+                </div>`;
+            pages.submissions.innerHTML = content;
+        };
+        
+        window.approveSubmission = async (id) => {
+            if (!confirm('هل أنت متأكد من الموافقة على هذا الطلب؟')) return;
+            await fetch(`https://fitreword-backend.onrender.com/api/admin/submissions/${id}/approve`, { method: 'POST' });
+            loadSubmissions();
+        };
+
+        window.rejectSubmission = async (id, username, challengeName) => {
+            const reason = prompt(`الرجاء إدخال سبب رفض طلب (${username} - ${challengeName}):`);
+            if (reason && reason.trim() !== '') {
+                await fetch(`https://fitreword-backend.onrender.com/api/admin/submissions/${id}/reject`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ reason: reason })
+                });
+                loadSubmissions();
+            } else if (reason !== null) {
+                alert('السبب لا يمكن أن يكون فارغاً.');
+            }
+        };
+        
+        // --- Users & Support Logic ---
+        const usersListTbody = document.getElementById('users-list-tbody');
+        const supportNavBadge = document.getElementById('support-nav-badge');
+        
+        const loadUsers = async () => {
+            try {
+                const response = await fetch('https://fitreword-backend.onrender.com/api/admin/users');
+                allUsersData = await response.json();
+                usersListTbody.innerHTML = '';
+                
+                let totalUnread = allUsersData.reduce((sum, user) => sum + (user.unreadMessages || 0), 0);
+                
+                allUsersData.forEach(user => {
+                    const badgeHtml = user.unreadMessages > 0 ? `<span class="notification-badge">${user.unreadMessages}</span>` : '';
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td><div class="user-name-cell">${user.username} ${badgeHtml}</div></td>
+                        <td>${user.email || 'غير محدد'}</td>
+                        <td>${user.points}</td>
+                        <td><button class="btn btn-details" onclick="viewUser('${user.id}')">عرض التفاصيل</button></td>
+                    `;
+                    usersListTbody.appendChild(row);
+                });
+                
+                if (totalUnread > 0) {
+                    supportNavBadge.textContent = totalUnread;
+                    supportNavBadge.classList.remove('hidden');
+                } else {
+                    supportNavBadge.classList.add('hidden');
+                }
+            } catch (e) { console.error("Failed to load users:", e); }
+        };
+
+        const userDetailView = document.getElementById('user-detail-view');
+        window.viewUser = async (userId, scrollToBottom = false) => {
+            try {
+                const [userResponse, ticketsResponse] = await Promise.all([
+                    fetch(`https://fitreword-backend.onrender.com/api/admin/users/${userId}`),
+                    fetch(`https://fitreword-backend.onrender.com/api/admin/tickets/user/${userId}`)
+                ]);
+                const user = await userResponse.json();
+                const tickets = await ticketsResponse.json();
+                
+                renderUserDetail(user, tickets);
+                document.getElementById('users-list-view').classList.add('hidden');
+                userDetailView.classList.remove('hidden');
+                
+                const unreadTicketIds = tickets.filter(t => t.status === 'unread' && t.sender === 'user').map(t => t.id);
+                if (unreadTicketIds.length > 0) {
+                    await fetch('https://fitreword-backend.onrender.com/api/admin/tickets/read', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ ticketIds: unreadTicketIds })
+                    });
+                }
+            } catch (e) { console.error("Failed to load user details:", e); }
+        };
+
+        const renderUserDetail = (user, tickets) => {
+            const submissionsHtml = user.submissions && user.submissions.length > 0 ? user.submissions.map(sub => `
+                <tr>
+                    <td><img src="${sub.imageUrl}" width="50" style="cursor:pointer; border-radius: 4px;" onclick="openModal('${sub.imageUrl}')"/></td>
+                    <td>${sub.challengeName}</td>
+                    <td>${sub.status}</td>
+                    <td>${new Date(sub.submittedAt).toLocaleDateString('ar-EG')}</td>
+                </tr>
+            `).join('') : '<tr><td colspan="4">لا توجد طلبات.</td></tr>';
+
+            const ticketsHtml = tickets.map(ticket => `
+                <div class="chat-message ${ticket.sender === 'user' ? 'message-user' : 'message-admin'}">
+                    <p>${ticket.message.replace(/\n/g, '<br>')}</p>
+                    <span class="timestamp">${new Date(ticket.createdAt).toLocaleTimeString('ar-EG', {hour: '2-digit', minute:'2-digit'})}</span>
+                </div>`).join('');
+
+            userDetailView.innerHTML = `
+                <div class="page-header">
+                    <button class="btn btn-secondary" onclick="showUsersList()"><i class="fas fa-arrow-right"></i> العودة</button>
+                    <h2>ملف المستخدم</h2>
+                </div>
+                <div class="user-detail-grid">
+                    <div class="detail-card profile-info">
+                        <img src="${user.profilePictureUrl || 'https://via.placeholder.com/120'}" alt="Profile Picture"/>
+                        <h4>${user.username}</h4>
+                        <p>${user.email}</p>
+                        <p><strong>النقاط:</strong> ${user.points}</p>
+                        <p><strong>نبذة:</strong> ${user.bio || 'لا يوجد'}</p>
+                    </div>
+                    <div class="detail-card">
+                        <h3><i class="fas fa-headset"></i> محادثة الدعم</h3>
+                        <div class="chat-container">
+                            <div class="chat-messages" id="chat-messages-box">${ticketsHtml}</div>
+                            <div class="reply-form">
+                                <textarea id="reply-textarea" placeholder="اكتب ردك هنا..." rows="1"></textarea>
+                                <button id="send-reply-btn" class="btn btn-primary"><i class="fas fa-paper-plane"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="detail-card" style="margin-top: 30px;">
+                    <h3><i class="fas fa-check-to-slot"></i> طلبات التحقق الخاصة بالمستخدم</h3>
+                    <table class="table-wrapper">
+                        <thead><tr><th>صورة الإثبات</th><th>التحدي</th><th>الحالة</th><th>التاريخ</th></tr></thead>
+                        <tbody>${submissionsHtml}</tbody>
+                    </table>
+                </div>`;
+            
+            const chatBox = document.getElementById('chat-messages-box');
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            document.getElementById('send-reply-btn').onclick = () => sendReply(user.id);
+            document.getElementById('reply-textarea').addEventListener('keypress', (e) => {
+                if(e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendReply(user.id); }
+            });
+        };
+        
+        const sendReply = async (userId) => {
+            const textarea = document.getElementById('reply-textarea');
+            const message = textarea.value.trim();
+            if(!message) return;
+            
+            const sendBtn = document.getElementById('send-reply-btn');
+            sendBtn.disabled = true;
+
+            try {
+                const response = await fetch('https://fitreword-backend.onrender.com/api/admin/tickets/reply', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ userId: userId, message: message })
+                });
+                if(response.ok){
+                    textarea.value = '';
+                    viewUser(userId);
+                } else {
+                    const error = await response.json();
+                    alert('فشل إرسال الرد: ' + (error.message || 'خطأ غير معروف'));
+                }
+            } catch (e) {
+                console.error("Failed to send reply:", e);
+                alert('فشل إرسال الرد.');
+            } finally {
+                sendBtn.disabled = false;
+            }
+        };
+
+        window.showUsersList = () => {
+            userDetailView.classList.add('hidden');
+            document.getElementById('users-list-view').classList.remove('hidden');
+            loadUsers();
+        };
+        
+        // --- Modal Logic ---
+        const modal = document.getElementById("imageModal");
+        const modalImg = document.getElementById("modalImage");
+        window.openModal = (src) => {
+            modal.style.display = "flex";
+            modalImg.src = src;
+        }
+        window.closeModal = () => {
+            modal.style.display = "none";
+        }
+        window.onclick = (event) => {
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
+        // --- Initial Load ---
+        showPage('submissions');
+    });
+    </script>
+</body>
+</html>
