@@ -1,0 +1,9 @@
+// ملاحظة: هذا هو الملف الموجود في المجلد الرئيسي للمشروع
+// (Project: FitReword_App)
+
+plugins {
+    // إصدار إضافة أندرويد للتطبيق
+    id 'com.android.application' version '8.11.1' apply false
+    // إصدار إضافة كوتلن للأندرويد
+    id 'org.jetbrains.kotlin.android' version '1.9.22' apply false
+}
